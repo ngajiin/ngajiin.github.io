@@ -1,4 +1,5 @@
 ---
+import logo from '../assets/logo.png';
 const navItems = [
   { href: "/", label: "Beranda" },
   { href: "/program", label: "Program" },
@@ -11,13 +12,15 @@ const navItems = [
     <div class="flex items-center justify-between h-16">
       <div class="flex items-center">
         <div class="flex-shrink-0">
-          <a href="/" class="text-white font-bold text-2xl">Ngajiin.id</a>
+          <a href="/">
+            <img src={logo.src} alt="Ngajiin.id Logo" class="h-18 w-auto" />
+          </a>
         </div>
       </div>
       <div class="hidden md:block">
         <div class="ml-10 flex items-baseline space-x-4">
           {navItems.map((item) => (
-            <a href={item.href} class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">{item.label}</a>
+            <a href={item.href} class="text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">{item.label}</a>
           ))}
         </div>
       </div>
