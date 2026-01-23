@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+import heroImage from '../assets/hero.png';
+---
+
+<main class="relative isolate overflow-hidden bg-white">
+  <Image
+    src={heroImage}
+    alt="Hero Background"
+    class="absolute inset-0 -z-10 h-full w-full object-cover object-left md:object-center"
+  />
+
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-32 sm:py-48 lg:py-56 text-left">
+    <div class="max-w-md rounded-lg bg-blue-600/90 p-8 text-white shadow-lg">
+      <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">
+        Kursus dan Mengaji Online
+      </h1>
+
+      <p class="mt-6 text-lg leading-8">
+        Ngajiin.id merupakan platform belajar secara daring. Dengan menjadikan kitab-kitab turath sebagai rujukan dan kajian utama. Kami juga menyusun diktat untuk beberapa materi seperti pembelajaran ilmu mantik, bahasa Arab, ilmu Al-Quran, dan ilmu alat lainnya untuk memudahkan para peserta dalam memahami dasar-dasar keilmuan Islam.
+      </p>
+
+      <div class="mt-10 flex items-center gap-x-6">
+        <a
+          href="https://wa.me/+6281334225986/?text=Assalamu%27alaikum%20wr.%20wb.%0ASaya%20ingin%20menjadi%20peserta%20di%20Ngajiin.id."
+          class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-blue-600 shadow-sm hover:bg-blue-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        >
+          Daftar Sekarang
+        </a>
+
+        <a href="/program" class="text-sm font-semibold leading-6 text-white">
+          Lihat Program <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</main>

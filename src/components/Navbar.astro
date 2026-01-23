@@ -4,6 +4,7 @@ const navItems = [
   { href: "/", label: "Beranda" },
   { href: "/program", label: "Program" },
   { href: "/pengajar", label: "Pengajar" },
+  { href: "/rekaman", label: "Rekaman Kajian" },
 ];
 ---
 
@@ -20,7 +21,7 @@ const navItems = [
       <div class="hidden md:block">
         <div class="ml-10 flex items-baseline space-x-4">
           {navItems.map((item) => (
-            <a href={item.href} class="text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">{item.label}</a>
+            <a href={item.href} class="nav-link text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">{item.label}</a>
           ))}
         </div>
       </div>
@@ -62,12 +63,39 @@ const navItems = [
   }
 
   if (navbar) {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add('bg-blue-800', 'bg-opacity-90', 'backdrop-blur-sm' ,'shadow-lg');
-      } else {
-        navbar.classList.remove('bg-blue-800', 'bg-opacity-90', 'backdrop-blur-sm', 'shadow-lg');
-      }
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add(
+        'bg-[#1e2939]',
+        'bg-opacity-100',
+        'backdrop-blur-sm',
+        'shadow-lg'
+      );
+    } else {
+      navbar.classList.remove(
+        'bg-[#1e2939]',
+        'bg-opacity-100',
+        'backdrop-blur-sm',
+        'shadow-lg'
+      );
+    }
+  });
+}
+
+const navLinks = document.querySelectorAll('.nav-link');
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) {
+    navLinks.forEach(link => {
+      link.classList.remove('text-black');
+      link.classList.add('text-white');
+    });
+  } else {
+    navLinks.forEach(link => {
+      link.classList.remove('text-white');
+      link.classList.add('text-black');
     });
   }
+});
+
 </script>
