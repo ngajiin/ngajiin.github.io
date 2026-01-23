@@ -14,15 +14,28 @@ const navItems = [
       <div class="flex items-center">
         <div class="flex-shrink-0">
           <a href="/">
-            <img src={logo.src} alt="Ngajiin.id Logo" class="h-18 w-auto" />
+            <img id="navbar-logo" src={logo.src} alt="Ngajiin.id Logo" class="h-18 w-auto transition-all duration-300" />
           </a>
         </div>
       </div>
       <div class="hidden md:block">
         <div class="ml-10 flex items-baseline space-x-4">
           {navItems.map((item) => (
-            <a href={item.href} class="nav-link text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">{item.label}</a>
+            <a
+              href={item.href}
+              class="nav-link text-black hover:text-[#0990fe] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300"
+            >
+              {item.label}
+            </a>
           ))}
+
+          <!-- BUTTON DAFTAR -->
+          <a
+            href="https://wa.me/+6281334225986/?text=Assalamu%27alaikum%20wr.%20wb.%0ASaya%20ingin%20menjadi%20peserta%20di%20Ngajiin.id."
+            class="nav-cta ml-2 rounded-md bg-[#0990fe] px-4 py-2 text-sm font-semibold text-white shadow hover:bg-[#077edb] transition"
+          >
+            Daftar Sekarang
+          </a>
         </div>
       </div>
       <div class="-mr-2 flex md:hidden">
@@ -52,6 +65,7 @@ const navItems = [
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   const mobileMenu = document.getElementById('mobile-menu');
   const navbar = document.getElementById('navbar');
+  const navbarLogo = document.getElementById('navbar-logo');
 
   if (mobileMenuButton && mobileMenu) {
     const svgs = mobileMenuButton.querySelectorAll('svg');
@@ -62,7 +76,7 @@ const navItems = [
     });
   }
 
-  if (navbar) {
+  if (navbar && navbarLogo) {
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
       navbar.classList.add(
@@ -71,6 +85,7 @@ const navItems = [
         'backdrop-blur-sm',
         'shadow-lg'
       );
+      navbarLogo.classList.add('invert');
     } else {
       navbar.classList.remove(
         'bg-[#1e2939]',
@@ -78,6 +93,7 @@ const navItems = [
         'backdrop-blur-sm',
         'shadow-lg'
       );
+      navbarLogo.classList.remove('invert');
     }
   });
 }
