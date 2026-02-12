@@ -22,15 +22,15 @@ import heroMobileImage from '../assets/hero-mobile.png';
     <div class="relative max-w-xl">
       <!-- CARD UTAMA -->
       <div class="relative rounded-lg bg-[#0990fe]/90 p-10 text-white shadow-lg">
-        <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">
+        <h1 class="hero-title text-4xl font-bold tracking-tight sm:text-6xl">
           Kursus dan Mengaji Online
         </h1>
 
-        <p class="mt-6 text-lg leading-8">
+        <p class="hero-desc mt-6 text-lg leading-8">
           Ngajiin.id merupakan platform belajar secara daring. Dengan menjadikan kitab-kitab turath sebagai rujukan dan kajian utama. Kami juga menyusun diktat untuk beberapa materi seperti pembelajaran ilmu mantik, bahasa Arab, ilmu Al-Quran, dan ilmu alat lainnya untuk memudahkan para peserta dalam memahami dasar-dasar keilmuan Islam.
         </p>
 
-        <div class="mt-10 flex items-center gap-x-6">
+        <div class="hero-btns mt-10 flex items-center gap-x-6">
           <a
             href="https://wa.me/+6281334225986/?text=Assalamu%27alaikum%20wr.%20wb.%0ASaya%20ingin%20menjadi%20peserta%20di%20Ngajiin.id."
             class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-blue-600 shadow-sm hover:bg-blue-50"
@@ -46,3 +46,45 @@ import heroMobileImage from '../assets/hero-mobile.png';
     </div>
   </div>
 </main>
+
+<script>
+  import { gsap } from 'gsap';
+
+  const tl = gsap.timeline({ defaults: { ease: 'power3.inOut' } });
+
+  // Set initial state to invisible
+  gsap.set(['.hero-title', '.hero-desc', '.hero-btns'], { opacity: 0 });
+
+  tl.fromTo(
+    '.hero-title',
+    { y: 20 },
+    {
+      duration: 0.8,
+      y: 0,
+      opacity: 1,
+      delay: 0.3,
+    }
+  );
+
+  tl.fromTo(
+    '.hero-desc',
+    { y: 20 },
+    {
+      duration: 0.8,
+      y: 0,
+      opacity: 1,
+    },
+    '-=0.6'
+  );
+
+  tl.fromTo(
+    '.hero-btns',
+    { y: 20 },
+    {
+      duration: 0.8,
+      y: 0,
+      opacity: 1,
+    },
+    '-=0.6'
+  );
+</script>

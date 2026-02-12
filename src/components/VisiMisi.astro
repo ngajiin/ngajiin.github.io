@@ -1,6 +1,6 @@
-<section class="py-24 sm:py-32">
+<section class="pb-24 sm:pb-32">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-7xl lg:text-center">
+    <div class="visimisi-title mx-auto max-w-7xl lg:text-center">
       <h2 class="text-base font-semibold leading-7 text-blue-600">
         Filosofi Kami
       </h2>
@@ -11,7 +11,7 @@
 
     <div class="mx-auto mt-16 max-w-7xl sm:mt-20 lg:mt-24">
       <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
-        <div class="relative pl-16">
+        <div class="visimisi-item relative pl-16">
           <dt class="text-base font-semibold leading-7 text-gray-900">
             <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white">
@@ -26,7 +26,7 @@
           </dd>
         </div>
 
-        <div class="relative pl-16">
+        <div class="visimisi-item relative pl-16">
           <dt class="text-base font-semibold leading-7 text-gray-900">
             <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-white">
@@ -49,3 +49,45 @@
     </div>
   </div>
 </section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Set initial state
+  gsap.set('.visimisi-title', { opacity: 0 });
+  gsap.set('.visimisi-item', { opacity: 0 });
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: 'section',
+      start: 'top 80%', // Start animation when the top of the section is 80% down from the top of the viewport
+      toggleActions: 'play none none none',
+    },
+    defaults: { ease: 'power3.inOut' }
+  });
+
+  tl.fromTo(
+    '.visimisi-title',
+    { y: 30 },
+    {
+      duration: 1,
+      y: 0,
+      opacity: 1,
+    }
+  );
+
+  tl.fromTo(
+    '.visimisi-item',
+    { y: 30 },
+    {
+      duration: 0.8,
+      y: 0,
+      opacity: 1,
+      stagger: 0.3, // Stagger the animation of each item
+    },
+    "-=0.7"
+  );
+</script>

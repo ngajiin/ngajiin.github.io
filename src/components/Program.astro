@@ -24,7 +24,7 @@ const programs = [
 ---
 <section class="py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-7xl lg:text-center">
+    <div class="program-title mx-auto max-w-7xl lg:text-center">
       <h2 class="text-base font-semibold leading-7 text-blue-600">
         Program yang Tersedia
       </h2>
@@ -36,7 +36,7 @@ const programs = [
     <div class="mx-auto mt-16 max-w-7xl sm:mt-20 lg:mt-24">
         <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {programs.map(program => (
-                <div class="flex flex-col overflow-hidden rounded-lg shadow-lg" id={program.title === 'Kajian & Bimbingan Islam' ? 'rekaman-kajian' : ''}>
+                <div class="program-card flex flex-col overflow-hidden rounded-lg shadow-lg" id={program.title === 'Kajian & Bimbingan Islam' ? 'rekaman-kajian' : ''}>
                     <div class="flex-shrink-0 aspect-[13/8] w-full overflow-hidden">
                         <Image 
                           src={program.image} 
@@ -56,3 +56,47 @@ const programs = [
     </div>
   </div>
 </section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const sectionElement = document.querySelector('.py-24.sm\\:py-32');
+
+  // Set initial state
+  gsap.set('.program-title', { opacity: 0 });
+  gsap.set('.program-card', { opacity: 0 });
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: sectionElement,
+      start: 'top 80%',
+      toggleActions: 'play none none none',
+    },
+    defaults: { ease: 'power3.inOut' }
+  });
+
+  tl.fromTo(
+    '.program-title',
+    { y: 30 },
+    {
+      duration: 1,
+      y: 0,
+      opacity: 1,
+    }
+  );
+
+  tl.fromTo(
+    '.program-card',
+    { y: 30 },
+    {
+      duration: 0.8,
+      y: 0,
+      opacity: 1,
+      stagger: 0.3,
+    },
+    "-=0.7"
+  );
+</script>
