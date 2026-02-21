@@ -1,0 +1,225 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+
+import mandiImg from '../assets/artikel/mandi.webp';
+import puasaImg from '../assets/artikel/puasa.webp';
+import sholatImg from '../assets/artikel/sholat.webp';
+import wudluImg from '../assets/artikel/wudlu.webp';
+import zakatImg from '../assets/artikel/zakat.webp';
+
+// Dummy data for articles
+const articles = [
+  {
+    id: 1,
+    title: 'Hukum-hukum Air: Hal yang Mewajibkan Mandi Besar',
+    category: 'Safinat al-Najah',
+    author: 'Ust. Achmad Syauqi Hifni, Lc., M.Ag',
+    image: mandiImg,
+    date: '21 Feb 2026',
+  },
+  {
+    id: 2,
+    title: 'Syarat Wudhu: Hal yang Membatalkan Wudhu',
+    category: 'Safinat al-Najah',
+    author: 'Ust. Achmad Syauqi Hifni, Lc., M.Ag',
+    image: wudluImg,
+    date: '20 Feb 2026',
+  },
+  {
+    id: 3,
+    title: 'Rukun Salat: Syarat Sahnya Salat',
+    category: 'Safinat al-Najah',
+    author: 'Ust. Achmad Syauqi Hifni, Lc., M.Ag',
+    image: sholatImg,
+    date: '19 Feb 2026',
+  },
+  {
+    id: 4,
+    title: 'Puasa Ramadhan: Niat dan Hal yang Membatalkan',
+    category: 'Safinat al-Najah',
+    author: 'Ust. Achmad Syauqi Hifni, Lc., M.Ag',
+    image: puasaImg,
+    date: '18 Feb 2026',
+  },
+  {
+    id: 5,
+    title: 'Zakat Fitrah: Ketentuannya dalam Islam',
+    category: 'Safinat al-Najah',
+    author: 'Ust. Achmad Syauqi Hifni, Lc., M.Ag',
+    image: zakatImg,
+    date: '17 Feb 2026',
+  },
+];
+
+const featuredArticle = articles[0];
+const latestArticles = articles.slice(1);
+---
+
+<Layout>
+  <main class="pt-24 pb-16 bg-gray-50 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Layout Template XXI -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Left Section: Featured Article -->
+        <div class="lg:col-span-2 space-y-4">
+          <div class="relative aspect-video lg:aspect-[16/9] w-full overflow-hidden rounded-2xl shadow-xl group cursor-pointer">
+            <Image 
+              src={featuredArticle.image} 
+              alt={featuredArticle.title}
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            
+            <!-- Ribbon style from image.png -->
+            <div class="absolute top-6 -left-1 z-10">
+                <div class="relative bg-[#0c1e33] text-white px-6 py-2 rounded-r-lg font-bold text-sm shadow-xl">
+                  {featuredArticle.category}
+                  <!-- The "fold" -->
+                  <div class="absolute top-full left-0 w-1 h-1 bg-[#050d16] [clip-path:polygon(100%_0,0_0,100%_100%)]"></div>
+                </div>
+            </div>
+
+            <div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center text-white">
+              <h1 class="text-3xl md:text-5xl font-serif leading-tight drop-shadow-2xl">
+                {featuredArticle.title.includes(':') ? (
+                  <>
+                    <span class="block">{featuredArticle.title.split(':')[0]}</span>
+                    <span class="block text-lg md:text-xl font-sans mt-2 opacity-80">{featuredArticle.title.split(':')[1]}</span>
+                  </>
+                ) : (
+                  featuredArticle.title
+                )}
+              </h1>
+            </div>
+            
+            <div class="absolute bottom-6 left-0 right-0 text-center px-6 text-white">
+                <p class="text-xs md:text-sm font-medium opacity-70">
+                    {featuredArticle.author}
+                </p>
+            </div>
+          </div>
+          
+          <!-- Sub-featured titles from XXI template -->
+          <div class="grid grid-cols-3 gap-4 pt-4 border-t border-gray-200">
+            <div class="text-center border-r border-blue-400">
+                <p class="text-xs font-bold text-gray-900 uppercase">Fiqih Ibadah</p>
+            </div>
+            <div class="text-center border-r border-blue-400">
+                <p class="text-xs font-bold text-gray-900 uppercase">Aqidah Dasar</p>
+            </div>
+            <div class="text-center">
+                <p class="text-xs font-bold text-gray-900 uppercase">Akhlak Mulia</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Section: Artikel Terbaru -->
+        <div class="lg:border-l lg:pl-8 space-y-6">
+          <div class="flex items-center justify-between border-b pb-2">
+            <h2 class="text-xl font-bold text-gray-900 uppercase tracking-wider">Artikel Terbaru</h2>
+          </div>
+          
+          <div class="divide-y divide-blue-200">
+            {latestArticles.map((article) => (
+              <div class="flex gap-4 group cursor-pointer py-4 first:pt-0 last:pb-0">
+                <div class="relative w-32 h-20 flex-shrink-0 overflow-hidden rounded-lg shadow-md border border-blue-100">
+                  <Image 
+                    src={article.image} 
+                    alt={article.title}
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
+                </div>
+                <div class="flex flex-col justify-center">
+                  <h3 class="text-sm font-bold text-gray-900 line-clamp-2 group-hover:text-[#0990fe] transition-colors uppercase">
+                    {article.title}
+                  </h3>
+                  <p class="text-xs text-gray-500 mt-1">{article.date}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div class="pt-4 border-t">
+             <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
+                <p class="text-xs font-semibold text-gray-400 uppercase mb-2">Kategori Populer</p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-medium">Fiqih</span>
+                    <span class="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-medium">Aqidah</span>
+                    <span class="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-medium">Adab</span>
+                </div>
+             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Section: Grid of Book-style cards (from image.png) -->
+      <div class="mt-16 space-y-8">
+        <div class="flex items-center gap-4">
+            <h2 class="text-2xl font-bold text-gray-900">Materi Kitab</h2>
+            <div class="h-1 flex-grow bg-gray-200 rounded-full">
+                <div class="h-1 w-24 bg-[#0990fe] rounded-full"></div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          {articles.map((article) => (
+            <div class="relative aspect-[2/3] rounded-2xl overflow-hidden shadow-lg group cursor-pointer">
+              <Image 
+                src={article.image} 
+                alt={article.title}
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#1e3a5f]/90 via-black/20 to-transparent"></div>
+              
+              <!-- Ribbon/Tab with folded effect -->
+              <div class="absolute top-4 -left-1 z-10">
+                <div class="relative bg-[#0c1e33] text-white px-4 py-1 rounded-r-md text-[10px] font-bold uppercase tracking-wider shadow-lg">
+                  {article.category}
+                  <!-- The "fold" -->
+                  <div class="absolute top-full left-0 w-1 h-1 bg-[#050d16] [clip-path:polygon(100%_0,0_0,100%_100%)]"></div>
+                </div>
+              </div>
+
+              <div class="absolute inset-0 p-4 flex flex-col justify-center text-center">
+                <h3 class="text-white font-serif text-lg md:text-xl mb-2 leading-tight drop-shadow-lg">
+                  {article.title.split(':').map((part, i) => (
+                    <span class={i === 0 ? "block text-2xl" : "block text-sm font-sans mt-1 opacity-90"}>{part}</span>
+                  ))}
+                </h3>
+              </div>
+              <div class="absolute bottom-4 left-0 right-0 text-center px-4">
+                <div class="h-px w-12 bg-white/30 mx-auto mb-2"></div>
+                <p class="text-white/60 text-[9px] font-medium">
+                  {article.author}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Footer Action from XXI template -->
+      <div class="mt-16 group cursor-pointer">
+        <div class="bg-white border border-blue-200 rounded-t-xl py-3 text-center">
+            <p class="text-sm font-medium text-gray-600">Baca Lebih Banyak Artikel, Klik <span class="underline text-blue-600">Di sini</span></p>
+        </div>
+        <div class="bg-[#0990fe] h-12 rounded-b-xl shadow-lg transition-all group-hover:bg-[#077edb]"></div>
+      </div>
+
+    </div>
+  </main>
+</Layout>
+
+<style>
+  /* Custom scrollbar if needed */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
