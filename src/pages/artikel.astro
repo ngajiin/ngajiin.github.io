@@ -56,7 +56,10 @@ const featuredArticle = articles[0];
 const latestArticles = articles.slice(1);
 ---
 
-<Layout>
+<Layout 
+  title="Artikel & Kajian Islam - Ngajiin.id" 
+  description="Baca artikel dan ringkasan kajian kitab turath mulai dari Fiqih, Aqidah, hingga Adab bersama Ustadz Achmad Syauqi Hifni, Lc., M.Ag."
+>
   <main class="pt-24 pb-16 bg-gray-50 min-h-screen">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
@@ -157,6 +160,7 @@ const latestArticles = articles.slice(1);
       </div>
 
       <!-- Bottom Section: Grid of Book-style cards (from image.png) -->
+      {/* 
       <div class="mt-16 space-y-8">
         <div class="flex items-center gap-4">
             <h2 class="text-2xl font-bold text-gray-900">Materi Kitab</h2>
@@ -175,11 +179,9 @@ const latestArticles = articles.slice(1);
               />
               <div class="absolute inset-0 bg-gradient-to-t from-[#1e3a5f]/90 via-black/20 to-transparent"></div>
               
-              <!-- Ribbon/Tab with folded effect -->
               <div class="absolute top-4 -left-1 z-10">
                 <div class="relative bg-[#0c1e33] text-white px-4 py-1 rounded-r-md text-[10px] font-bold uppercase tracking-wider shadow-lg">
                   {article.category}
-                  <!-- The "fold" -->
                   <div class="absolute top-full left-0 w-1 h-1 bg-[#050d16] [clip-path:polygon(100%_0,0_0,100%_100%)]"></div>
                 </div>
               </div>
@@ -201,6 +203,7 @@ const latestArticles = articles.slice(1);
           ))}
         </div>
       </div>
+      */}
 
       <!-- Footer Action from XXI template -->
       <div class="mt-16 group cursor-pointer">
