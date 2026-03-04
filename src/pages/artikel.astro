@@ -17,6 +17,7 @@ const articles = [
     author: 'Ust. Achmad Syauqi Hifni, Lc., M.Ag',
     image: mandiImg,
     date: '21 Feb 2026',
+    excerpt: 'Pembahasan mendalam mengenai jenis-jenis air yang dapat digunakan untuk bersuci dan rukun mandi besar...'
   },
   {
     id: 2,
@@ -25,6 +26,7 @@ const articles = [
     author: 'Ust. Achmad Syauqi Hifni, Lc., M.Ag',
     image: wudluImg,
     date: '20 Feb 2026',
+    excerpt: 'Mengenal batasan dan hal-hal yang sering dianggap sepele namun ternyata dapat membatalkan kesucian wudhu kita...'
   },
   {
     id: 3,
@@ -33,6 +35,7 @@ const articles = [
     author: 'Ust. Achmad Syauqi Hifni, Lc., M.Ag',
     image: sholatImg,
     date: '19 Feb 2026',
+    excerpt: 'Salat adalah tiang agama. Mari pelajari kembali rukun-rukun salat agar ibadah kita semakin sempurna sesuai syariat...'
   },
   {
     id: 4,
@@ -41,6 +44,7 @@ const articles = [
     author: 'Ust. Achmad Syauqi Hifni, Lc., M.Ag',
     image: puasaImg,
     date: '18 Feb 2026',
+    excerpt: 'Menyambut bulan suci dengan ilmu. Ringkasan hukum puasa mulai dari niat hingga hal-hal yang membatalkannya...'
   },
   {
     id: 5,
@@ -49,11 +53,13 @@ const articles = [
     author: 'Ust. Achmad Syauqi Hifni, Lc., M.Ag',
     image: zakatImg,
     date: '17 Feb 2026',
+    excerpt: 'Kewajiban setiap muslim di akhir Ramadhan. Berapa takarannya dan siapa saja yang berhak menerimanya?'
   },
 ];
 
 const featuredArticle = articles[0];
 const latestArticles = articles.slice(1);
+const recommendedArticles = articles.slice(1, 3); // For the new grid
 ---
 
 <Layout 
@@ -63,154 +69,183 @@ const latestArticles = articles.slice(1);
   <main class="pt-24 pb-16 bg-gray-50 min-h-screen">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <!-- Layout Template XXI -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
         
-        <!-- Left Section: Featured Article -->
-        <div class="lg:col-span-2 space-y-4">
-          <div class="relative aspect-video lg:aspect-[16/9] w-full overflow-hidden rounded-2xl shadow-xl group cursor-pointer">
+        <!-- Left Section: Main Content -->
+        <div class="lg:col-span-2 space-y-10">
+          
+          <!-- Featured Hero -->
+          <div class="relative aspect-video lg:aspect-[16/9] w-full overflow-hidden rounded-2xl shadow-2xl group cursor-pointer bg-gray-200">
             <Image 
               src={featuredArticle.image} 
               alt={featuredArticle.title}
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
             
-            <!-- Ribbon style from image.png -->
-            <div class="absolute top-6 -left-1 z-10">
-                <div class="relative bg-[#0c1e33] text-white px-6 py-2 rounded-r-lg font-bold text-sm shadow-xl">
+            <div class="absolute top-6 left-0 z-10">
+                <div class="relative bg-[#0990fe] text-white px-6 py-2 rounded-r-lg font-bold text-xs uppercase tracking-widest shadow-xl">
                   {featuredArticle.category}
-                  <!-- The "fold" -->
-                  <div class="absolute top-full left-0 w-1 h-1 bg-[#050d16] [clip-path:polygon(100%_0,0_0,100%_100%)]"></div>
+                  <div class="absolute top-full left-0 w-1.5 h-1.5 bg-[#077edb] [clip-path:polygon(100%_0,0_0,100%_100%)]"></div>
                 </div>
             </div>
 
-            <div class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center text-white">
-              <h1 class="text-3xl md:text-5xl font-serif leading-tight drop-shadow-2xl">
-                {featuredArticle.title.includes(':') ? (
-                  <>
-                    <span class="block">{featuredArticle.title.split(':')[0]}</span>
-                    <span class="block text-lg md:text-xl font-sans mt-2 opacity-80">{featuredArticle.title.split(':')[1]}</span>
-                  </>
-                ) : (
-                  featuredArticle.title
-                )}
-              </h1>
+            <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center text-white">
+              <div class="max-w-2xl space-y-4">
+                <h1 class="text-4xl md:text-6xl font-serif leading-tight drop-shadow-2xl">
+                  {featuredArticle.title.includes(':') ? (
+                    <>
+                      <span class="block mb-2">{featuredArticle.title.split(':')[0]}</span>
+                      <span class="block text-xl md:text-2xl font-sans font-light opacity-90 italic">
+                        {featuredArticle.title.split(':')[1]}
+                      </span>
+                    </>
+                  ) : (
+                    featuredArticle.title
+                  )}
+                </h1>
+                
+                <div class="flex items-center justify-center gap-4 pt-4">
+                  <div class="h-px w-8 bg-white/50"></div>
+                  <p class="text-sm font-medium tracking-widest uppercase opacity-80">
+                      {featuredArticle.author}
+                  </p>
+                  <div class="h-px w-8 bg-white/50"></div>
+                </div>
+              </div>
             </div>
+          </div>
+          
+          <!-- Category Quick Links -->
+          <div class="grid grid-cols-3 gap-0 py-6 border-y border-gray-200 bg-white rounded-xl shadow-sm">
+            <div class="text-center border-r border-gray-100 group cursor-pointer">
+                <p class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Kategori</p>
+                <p class="text-xs font-bold text-gray-900 uppercase group-hover:text-[#0990fe] transition-colors">Fiqih Ibadah</p>
+            </div>
+            <div class="text-center border-r border-gray-100 group cursor-pointer">
+                <p class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Kategori</p>
+                <p class="text-xs font-bold text-gray-900 uppercase group-hover:text-[#0990fe] transition-colors">Aqidah Dasar</p>
+            </div>
+            <div class="text-center group cursor-pointer">
+                <p class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Kategori</p>
+                <p class="text-xs font-bold text-gray-900 uppercase group-hover:text-[#0990fe] transition-colors">Akhlak Mulia</p>
+            </div>
+          </div>
+
+          <!-- NEW SECTION: Discovery Grid (Filling the empty space) -->
+          <div class="space-y-8">
+            <div class="flex items-center justify-between">
+              <h2 class="text-xl font-black text-gray-900 uppercase tracking-widest">Kajian Pilihan</h2>
+              <div class="h-[2px] flex-grow mx-6 bg-gray-100"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {recommendedArticles.map((article) => (
+                <div class="group cursor-pointer">
+                  <div class="relative aspect-[16/10] overflow-hidden rounded-2xl mb-4 shadow-lg">
+                    <Image 
+                      src={article.image} 
+                      alt={article.title}
+                      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </div>
+                  <div class="space-y-2">
+                    <div class="flex items-center gap-3">
+                      <span class="text-[10px] font-bold text-[#0990fe] uppercase tracking-wider">{article.category}</span>
+                      <span class="w-1 h-1 rounded-full bg-gray-300"></span>
+                      <span class="text-[10px] font-medium text-gray-400 uppercase tracking-wider">{article.date}</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 leading-tight group-hover:text-[#0990fe] transition-colors">
+                      {article.title}
+                    </h3>
+                    <p class="text-sm text-gray-500 line-clamp-2 leading-relaxed">
+                      {article.excerpt}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Section: Sidebar Artikel (Sticky) -->
+        <aside class="space-y-8 lg:sticky lg:top-28 self-start">
+          <div class="relative">
+            <h2 class="text-lg font-black text-gray-900 uppercase tracking-[0.15em] mb-6 flex items-center gap-3">
+              <span class="w-8 h-[2px] bg-[#0990fe]"></span>
+              Artikel Terbaru
+            </h2>
             
-            <div class="absolute bottom-6 left-0 right-0 text-center px-6 text-white">
-                <p class="text-xs md:text-sm font-medium opacity-70">
-                    {featuredArticle.author}
-                </p>
-            </div>
-          </div>
-          
-          <!-- Sub-featured titles from XXI template -->
-          <div class="grid grid-cols-3 gap-4 pt-4 border-t border-gray-200">
-            <div class="text-center border-r border-blue-400">
-                <p class="text-xs font-bold text-gray-900 uppercase">Fiqih Ibadah</p>
-            </div>
-            <div class="text-center border-r border-blue-400">
-                <p class="text-xs font-bold text-gray-900 uppercase">Aqidah Dasar</p>
-            </div>
-            <div class="text-center">
-                <p class="text-xs font-bold text-gray-900 uppercase">Akhlak Mulia</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Section: Artikel Terbaru -->
-        <div class="lg:border-l lg:pl-8 space-y-6">
-          <div class="flex items-center justify-between border-b pb-2">
-            <h2 class="text-xl font-bold text-gray-900 uppercase tracking-wider">Artikel Terbaru</h2>
-          </div>
-          
-          <div class="divide-y divide-blue-200">
-            {latestArticles.map((article) => (
-              <div class="flex gap-4 group cursor-pointer py-4 first:pt-0 last:pb-0">
-                <div class="relative w-32 h-20 flex-shrink-0 overflow-hidden rounded-lg shadow-md border border-blue-100">
-                  <Image 
-                    src={article.image} 
-                    alt={article.title}
-                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
+            <div class="space-y-6">
+              {latestArticles.map((article) => (
+                <div class="flex gap-4 group cursor-pointer">
+                  <div class="relative w-24 h-24 flex-shrink-0 overflow-hidden rounded-xl shadow-lg shadow-blue-900/5">
+                    <Image 
+                      src={article.image} 
+                      alt={article.title}
+                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
+                  </div>
+                  <div class="flex flex-col justify-center space-y-2">
+                    <h3 class="text-sm font-bold text-gray-800 line-clamp-2 group-hover:text-[#0990fe] transition-colors leading-snug uppercase tracking-tight">
+                      {article.title}
+                    </h3>
+                    <div class="flex items-center gap-2">
+                      <span class="w-4 h-[1px] bg-gray-300"></span>
+                      <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{article.date}</p>
+                    </div>
+                  </div>
                 </div>
-                <div class="flex flex-col justify-center">
-                  <h3 class="text-sm font-bold text-gray-900 line-clamp-2 group-hover:text-[#0990fe] transition-colors uppercase">
-                    {article.title}
-                  </h3>
-                  <p class="text-xs text-gray-500 mt-1">{article.date}</p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
-          <div class="pt-4 border-t">
-             <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-                <p class="text-xs font-semibold text-gray-400 uppercase mb-2">Kategori Populer</p>
-                <div class="flex flex-wrap gap-2">
-                    <span class="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-medium">Fiqih</span>
-                    <span class="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-medium">Aqidah</span>
-                    <span class="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-medium">Adab</span>
-                </div>
-             </div>
+          <!-- Sidebar CTA / Newsletter -->
+          <div class="bg-gradient-to-br from-[#0c1e33] to-[#0990fe] p-8 rounded-3xl shadow-2xl text-white relative overflow-hidden group">
+            <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+            <h3 class="text-xl font-black uppercase tracking-wider mb-2 relative z-10 text-white">Grup Kajian</h3>
+            <p class="text-xs text-white/70 mb-6 leading-relaxed relative z-10">Dapatkan notifikasi ringkasan kajian kitab turath langsung di WhatsApp Anda.</p>
+            <button class="w-full bg-white text-[#0c1e33] font-black py-3 rounded-xl text-xs uppercase tracking-widest hover:bg-gray-100 transition-all shadow-xl relative z-10">
+              Gabung Sekarang
+            </button>
           </div>
-        </div>
+
+          <!-- Popular Categories -->
+          <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <h2 class="text-xs font-black uppercase tracking-[0.2em] mb-4 text-gray-400">Topik Populer</h2>
+            <div class="flex flex-wrap gap-2">
+                {['Fiqih', 'Aqidah', 'Adab', 'Tafsir', 'Hadits'].map((cat) => (
+                  <span class="bg-gray-50 hover:bg-blue-50 hover:text-[#0990fe] border border-gray-100 px-4 py-1.5 rounded-full text-[10px] font-bold tracking-wider cursor-pointer transition-all">
+                    {cat}
+                  </span>
+                ))}
+            </div>
+          </div>
+
+          <!-- Kalam Hikmah Widget -->
+          <div class="bg-blue-50/50 p-6 rounded-2xl border border-blue-100">
+            <h2 class="text-[10px] font-black uppercase tracking-[0.2em] mb-4 text-[#0990fe]">Kalam Hikmah</h2>
+            <blockquote class="text-sm font-serif italic text-gray-600 leading-relaxed">
+              "Barangsiapa yang menempuh jalan untuk mencari ilmu, maka Allah akan memudahkan baginya jalan menuju surga."
+            </blockquote>
+            <p class="text-[10px] font-bold text-gray-400 mt-4 uppercase tracking-wider">— HR. Muslim</p>
+          </div>
+        </aside>
       </div>
 
-      <!-- Bottom Section: Grid of Book-style cards (from image.png) -->
-      {/* 
-      <div class="mt-16 space-y-8">
-        <div class="flex items-center gap-4">
-            <h2 class="text-2xl font-bold text-gray-900">Materi Kitab</h2>
-            <div class="h-1 flex-grow bg-gray-200 rounded-full">
-                <div class="h-1 w-24 bg-[#0990fe] rounded-full"></div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          {articles.map((article) => (
-            <div class="relative aspect-[2/3] rounded-2xl overflow-hidden shadow-lg group cursor-pointer">
-              <Image 
-                src={article.image} 
-                alt={article.title}
-                class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-[#1e3a5f]/90 via-black/20 to-transparent"></div>
-              
-              <div class="absolute top-4 -left-1 z-10">
-                <div class="relative bg-[#0c1e33] text-white px-4 py-1 rounded-r-md text-[10px] font-bold uppercase tracking-wider shadow-lg">
-                  {article.category}
-                  <div class="absolute top-full left-0 w-1 h-1 bg-[#050d16] [clip-path:polygon(100%_0,0_0,100%_100%)]"></div>
-                </div>
-              </div>
-
-              <div class="absolute inset-0 p-4 flex flex-col justify-center text-center">
-                <h3 class="text-white font-serif text-lg md:text-xl mb-2 leading-tight drop-shadow-lg">
-                  {article.title.split(':').map((part, i) => (
-                    <span class={i === 0 ? "block text-2xl" : "block text-sm font-sans mt-1 opacity-90"}>{part}</span>
-                  ))}
-                </h3>
-              </div>
-              <div class="absolute bottom-4 left-0 right-0 text-center px-4">
-                <div class="h-px w-12 bg-white/30 mx-auto mb-2"></div>
-                <p class="text-white/60 text-[9px] font-medium">
-                  {article.author}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      */}
-
-      <!-- Footer Action from XXI template -->
-      <div class="mt-16 group cursor-pointer">
-        <div class="bg-white border border-blue-200 rounded-t-xl py-3 text-center">
-            <p class="text-sm font-medium text-gray-600">Baca Lebih Banyak Artikel, Klik <span class="underline text-blue-600">Di sini</span></p>
-        </div>
-        <div class="bg-[#0990fe] h-12 rounded-b-xl shadow-lg transition-all group-hover:bg-[#077edb]"></div>
+      <!-- Footer Action -->
+      <div class="mt-20 max-w-3xl mx-auto">
+        <a href="#" class="group block relative overflow-hidden rounded-2xl shadow-xl">
+          <div class="bg-white border border-gray-100 p-8 text-center transition-transform duration-500 group-hover:-translate-y-2">
+              <p class="text-lg font-serif italic text-gray-500 mb-2">Ingin menggali lebih dalam?</p>
+              <p class="text-sm font-black text-gray-900 uppercase tracking-[0.2em]">
+                Baca Lebih Banyak Artikel <span class="text-[#0990fe] ml-2 inline-block transition-transform group-hover:translate-x-2">→</span>
+              </p>
+          </div>
+          <div class="h-2 bg-[#0990fe] w-full"></div>
+        </a>
       </div>
 
     </div>

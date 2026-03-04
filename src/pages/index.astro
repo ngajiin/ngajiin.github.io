@@ -2,11 +2,29 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import Program from '../components/Program.astro';
+import Curriculum from '../components/Curriculum.astro';
+import Teachers from '../components/Teachers.astro';
+import Recordings from '../components/Recordings.astro';
 import VisiMisi from '../components/VisiMisi.astro';
 ---
 
 <Layout>
-  <Hero />
-  <Program />
-  <VisiMisi />
+  <div id="beranda">
+    <Hero />
+  </div>
+  <div id="program">
+    <Program />
+  </div>
+  <div id="kurikulum">
+    <Curriculum />
+  </div>
+  <div id="pengajar">
+    <Teachers />
+  </div>
+  <div id="rekaman">
+    <Recordings />
+  </div>
+  <div id="filosofi">
+    <VisiMisi />
+  </div>
 </Layout>

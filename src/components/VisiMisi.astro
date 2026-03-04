@@ -1,51 +1,72 @@
-<section class="pb-24 sm:pb-32">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="visimisi-title mx-auto max-w-7xl lg:text-center">
-      <h2 class="text-base font-semibold leading-7 text-blue-600">
+<section class="relative py-24 sm:py-32 overflow-hidden">
+  <!-- Background Decorations -->
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10 opacity-30">
+    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-100 rounded-full blur-[120px]"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-50 rounded-full blur-[120px]"></div>
+  </div>
+
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="visimisi-header text-center mb-16 sm:mb-24">
+      <h2 class="text-sm font-bold tracking-[0.2em] text-blue-600 uppercase mb-4">
         Filosofi Kami
       </h2>
-      <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-        Visi dan Misi Ngajiin.id
+      <p class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
+        Visi & <span class="text-blue-600">Misi</span> Ngajiin.id
       </p>
+      <div class="mt-6 flex justify-center">
+        <div class="h-1 w-20 bg-blue-600 rounded-full"></div>
+      </div>
     </div>
 
-    <div class="mx-auto mt-16 max-w-7xl sm:mt-20 lg:mt-24">
-      <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
-        <div class="visimisi-item relative pl-16">
-          <dt class="text-base font-semibold leading-7 text-gray-900">
-            <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white">
-                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 13c-3.03 0-5.5-2.47-5.5-5.5s2.47-5.5 5.5-5.5 5.5 2.47 5.5 5.5-2.47 5.5-5.5 5.5zm0-9c-1.93 0-3.5 1.57-3.5 3.5s1.57 3.5 3.5 3.5 3.5-1.57 3.5-3.5-1.57-3.5-3.5-3.5z"/>
-              </svg>
-            </div>
-            Visi
-          </dt>
-
-          <dd class="mt-2 text-base leading-7 text-gray-600">
-            Mencerdaskan kehidupan bangsa dengan membangun masyarakat yang moderat, inklusif, luwes, serta senantiasa menjunjung tinggi nilai-nilai kebaikan.
-          </dd>
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-stretch">
+      <!-- VISI CARD -->
+      <div class="visimisi-card group relative p-8 sm:p-10 rounded-3xl border border-gray-100 bg-white/60 backdrop-blur-xl shadow-sm transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden">
+        <div class="absolute top-0 left-0 w-2 h-full bg-blue-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        
+        <div class="mb-8 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-500">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
         </div>
 
-        <div class="visimisi-item relative pl-16">
-          <dt class="text-base font-semibold leading-7 text-gray-900">
-            <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-white">
-                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-              </svg>
-            </div>
-            Misi
-          </dt>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+          Visi
+        </h3>
+        <p class="text-lg leading-relaxed text-gray-600 italic">
+          "Mencerdaskan kehidupan bangsa dengan membangun masyarakat yang moderat, inklusif, luwes, serta senantiasa menjunjung tinggi nilai-nilai kebaikan."
+        </p>
+      </div>
 
-          <dd class="mt-2 text-base leading-7 text-gray-600">
-            <ul class="list-disc pl-5 space-y-2">
-              <li>Mengembangkan proses pembelajaran yang mendorong berpikir kritis, kreatif, dan berakhlak.</li>
-              <li>Membentuk karakter masyarakat yang moderat, seimbang, dan bertanggung jawab.</li>
-              <li>Menumbuhkan semangat dialog, kerja sama, dan persatuan dalam keberagaman.</li>
-              <li>Menyediakan pendidikan agama yang dapat diakses di mana pun dan dapat dijangkau oleh seluruh lapisan masyarakat.</li>
-            </ul>
-          </dd>
+      <!-- MISI CARD -->
+      <div class="visimisi-card group relative p-8 sm:p-10 rounded-3xl border border-gray-100 bg-white/60 backdrop-blur-xl shadow-sm transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden">
+        <div class="absolute top-0 left-0 w-2 h-full bg-blue-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+        <div class="mb-8 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-500">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+            <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
         </div>
-      </dl>
+
+        <h3 class="text-2xl font-bold text-gray-900 mb-6">Misi</h3>
+        <ul class="space-y-5">
+          {[
+            "Mengembangkan proses pembelajaran yang mendorong berpikir kritis, kreatif, dan berakhlak.",
+            "Membentuk karakter masyarakat yang moderat, seimbang, dan bertanggung jawab.",
+            "Menumbuhkan semangat dialog, kerja sama, dan persatuan dalam keberagaman.",
+            "Menyediakan pendidikan agama yang dapat diakses di mana pun dan terjangkau."
+          ].map((item) => (
+            <li class="flex items-start gap-4 group/item">
+              <div class="mt-1.5 flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center group-hover/item:bg-blue-600 transition-colors">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="w-3 h-3 text-blue-600 group-hover/item:text-white">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+              <span class="text-gray-600 leading-tight group-hover/item:text-gray-900 transition-colors">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -57,37 +78,26 @@
   gsap.registerPlugin(ScrollTrigger);
 
   // Set initial state
-  gsap.set('.visimisi-title', { opacity: 0 });
-  gsap.set('.visimisi-item', { opacity: 0 });
+  gsap.set('.visimisi-header', { opacity: 0, y: 50 });
+  gsap.set('.visimisi-card', { opacity: 0, y: 60, scale: 0.95 });
 
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: 'section',
-      start: 'top 80%', // Start animation when the top of the section is 80% down from the top of the viewport
+      start: 'top 75%',
       toggleActions: 'play none none none',
     },
-    defaults: { ease: 'power3.inOut' }
+    defaults: { ease: 'expo.out', duration: 1.2 }
   });
 
-  tl.fromTo(
-    '.visimisi-title',
-    { y: 30 },
-    {
-      duration: 1,
-      y: 0,
-      opacity: 1,
-    }
-  );
-
-  tl.fromTo(
-    '.visimisi-item',
-    { y: 30 },
-    {
-      duration: 0.8,
-      y: 0,
-      opacity: 1,
-      stagger: 0.3, // Stagger the animation of each item
-    },
-    "-=0.7"
-  );
+  tl.to('.visimisi-header', {
+    y: 0,
+    opacity: 1,
+  })
+  .to('.visimisi-card', {
+    y: 0,
+    opacity: 1,
+    scale: 1,
+    stagger: 0.2,
+  }, "-=0.8");
 </script>

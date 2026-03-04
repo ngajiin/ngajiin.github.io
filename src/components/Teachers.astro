@@ -1,0 +1,86 @@
+---
+import { Image } from 'astro:assets';
+import ustadzImage from '../assets/ustadz.png';
+import ustadz2Image from '../assets/ustadz2.jpeg';
+
+const teachers = [
+  {
+    name: "Ustadz Achmad Syauqi Hifni, Lc., M.Ag",
+    image: ustadzImage,
+    description: "Seorang alumni Universitas Al-Azhar Mesir yang mendapatkan beasiswa penuh dari pemerintah Mesir.",
+    whatsapp: "https://wa.me/6281334225986"
+  },
+  {
+    name: "Ahmad Faaza Hudzaifah, M.A.",
+    image: ustadz2Image,
+    description: "Alumni UIN Sunan Kalijaga Yogyakarta dan penghafal Al-Qur’an. Beliau mendalami kajian Al-Qur’an, tafsir, serta fiqh.",
+    whatsapp: "https://wa.me/6281334225986"
+  }
+];
+---
+<section class="relative py-24 sm:py-32 overflow-hidden bg-white">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="teachers-header text-center mb-16 sm:mb-24">
+      <h2 class="text-sm font-bold tracking-[0.2em] text-blue-600 uppercase mb-4">Pengajar</h2>
+      <p class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">Belajar Langsung dari <span class="text-blue-600">Ahlinya</span></p>
+      <div class="mt-6 flex justify-center">
+        <div class="h-1 w-20 bg-blue-600 rounded-full"></div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-stretch">
+      {teachers.map((teacher) => (
+        <div class="teacher-card group relative p-8 rounded-3xl border border-gray-100 bg-white shadow-sm transition-all duration-500 hover:shadow-2xl overflow-hidden">
+          <div class="flex flex-col sm:flex-row gap-8 items-center sm:items-start">
+            <div class="w-32 h-32 sm:w-40 sm:h-40 flex-shrink-0 overflow-hidden rounded-2xl shadow-lg group-hover:scale-105 transition-transform duration-500">
+              <Image src={teacher.image} alt={teacher.name} class="w-full h-full object-cover" />
+            </div>
+            <div class="flex-grow text-center sm:text-left">
+              <h3 class="text-xl font-bold text-gray-900 mb-2">{teacher.name}</h3>
+              <p class="text-gray-600 leading-relaxed mb-6 line-clamp-3">
+                {teacher.description}
+              </p>
+              <a href={teacher.whatsapp} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors">
+                Hubungi via WhatsApp
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                  <path d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.set('.teachers-header', { opacity: 0, y: 30 });
+  gsap.set('.teacher-card', { opacity: 0, y: 30 });
+
+  gsap.to('.teachers-header', {
+    scrollTrigger: {
+      trigger: '.teachers-header',
+      start: 'top 85%',
+    },
+    opacity: 1,
+    y: 0,
+    duration: 1
+  });
+
+  gsap.to('.teacher-card', {
+    scrollTrigger: {
+      trigger: '.teacher-card',
+      start: 'top 85%',
+    },
+    opacity: 1,
+    y: 0,
+    duration: 0.8,
+    stagger: 0.2
+  });
+</script>

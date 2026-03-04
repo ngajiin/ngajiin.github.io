@@ -1,75 +1,76 @@
-<footer class="bg-gray-800 text-white">
-  <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-    <div class="xl:grid xl:grid-cols-3 xl:gap-8">
-      <div class="space-y-8 xl:col-span-1">
-        <a href="/" class="text-white font-bold text-2xl">Ngajiin.id</a>
-        <p class="text-gray-400 text-base">
+<footer class="bg-[#0c1e33] text-white pt-12 pb-8 overflow-hidden relative">
+  <!-- Decorative background elements -->
+  <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#0990fe] to-transparent opacity-20"></div>
+  
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Brand Section -->
+      <div class="lg:col-span-5 space-y-4">
+        <a href="/" class="inline-block group">
+          <span class="text-3xl font-serif font-bold tracking-tight">Ngajiin<span class="text-[#0990fe]">.id</span></span>
+        </a>
+        <p class="text-gray-400 text-base leading-relaxed max-w-md font-light">
           Mencerdaskan kehidupan bangsa dengan membangun masyarakat yang moderat, inklusif, luwes, serta senantiasa menjunjung tinggi nilai-nilai kebaikan.
         </p>
       </div>
-      <div class="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
-        <div class="md:grid md:grid-cols-2 md:gap-8">
-          <div>
-            <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Program</h3>
-            <ul class="mt-4 space-y-4">
+
+      <!-- Links Sections -->
+      <div class="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-6">
+        <div>
+          <h3 class="text-sm font-bold text-[#0990fe] tracking-wider uppercase mb-4">Program</h3>
+          <ul class="space-y-2">
+            {['Bahasa Arab', 'Ilmu Mantik', 'Ilmu Al-Quran', 'Ilmu Alat'].map((item) => (
               <li>
-                <a href="#" class="text-base text-gray-300 hover:text-white">
-                  Bahasa Arab
+                <a href="#" class="text-base text-gray-400 hover:text-white transition-colors">
+                  {item}
                 </a>
               </li>
-              <li>
-                <a href="#" class="text-base text-gray-300 hover:text-white">
-                  Ilmu Mantik
-                </a>
-              </li>
-              <li>
-                <a href="#" class="text-base text-gray-300 hover:text-white">
-                  Ilmu Al-Quran
-                </a>
-              </li>
-              <li>
-                <a href="#" class="text-base text-gray-300 hover:text-white">
-                  Ilmu Alat
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="mt-12 md:mt-0">
-            <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Legal</h3>
-            <ul class="mt-4 space-y-4">
-              <li>
-                <a href="#" class="text-base text-gray-300 hover:text-white">
-                  Privacy Policy
-                </a>
-              </li>
-              <li>
-                <a href="#" class="text-base text-gray-300 hover:text-white">
-                  Terms of Service
-                </a>
-              </li>
-            </ul>
-          </div>
+            ))}
+          </ul>
         </div>
-        <div class="md:grid md:grid-cols-1 md:gap-8">
-          <div>
-            <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Hubungi Kami</h3>
-            <ul class="mt-4 space-y-4">
+
+        <div>
+          <h3 class="text-sm font-bold text-[#0990fe] tracking-wider uppercase mb-4">Legal</h3>
+          <ul class="space-y-2">
+            {['Privacy Policy', 'Terms of Service'].map((item) => (
               <li>
-                <a href="mailto:Kantorpesantren4@gmail.com" class="text-base text-gray-300 hover:text-white">
-                  Kantorpesantren4@gmail.com
+                <a href="#" class="text-base text-gray-400 hover:text-white transition-colors">
+                  {item}
                 </a>
               </li>
-            </ul>
-          </div>
+            ))}
+          </ul>
+        </div>
+
+        <div class="col-span-2 md:col-span-1">
+          <h3 class="text-sm font-bold text-[#0990fe] tracking-wider uppercase mb-4">Hubungi Kami</h3>
+          <ul class="space-y-2">
+            <li>
+              <a href="mailto:Kantorpesantren4@gmail.com" class="text-base text-gray-400 hover:text-white break-all transition-colors">
+                Kantorpesantren4@gmail.com
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
-    <div class="mt-12 border-t border-gray-700 pt-8">
-      <p class="text-base text-gray-400 xl:text-center">&copy; {new Date().getFullYear()} Ngajiin.id. All rights reserved.</p>
-      <div class="xl:text-center mt-2">
-        <p class="text-base text-gray-400">Developed by <a href="https://farrosfr.com" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400">FarrosFR</a></p>
+
+    <!-- Bottom Bar -->
+    <div class="mt-12 pt-6 border-t border-white/5 flex flex-col md:row justify-between items-center gap-2">
+      <div class="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+        <p class="text-xs font-medium text-gray-500 uppercase tracking-widest">
+          &copy; {new Date().getFullYear()} Ngajiin.id
+        </p>
+        <span class="hidden md:block w-1 h-1 bg-gray-700 rounded-full"></span>
+        <p class="text-xs font-medium text-gray-500 uppercase tracking-widest">
+          Developed by <a href="https://farrosfr.com" target="_blank" rel="noopener noreferrer" class="text-[#0990fe] hover:text-white">Farros</a>
+        </p>
       </div>
     </div>
+  </div>
+</footer>
+
 <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -78,5 +79,3 @@
     "url": "https://farrosfr.com"
   }
 </script>
-  </div>
-</footer>
