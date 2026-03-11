@@ -6,39 +6,43 @@ import heroMobileImage from '../assets/hero-mobile.png';
 
 <main class="relative isolate overflow-hidden bg-white min-h-screen">
   {/* Desktop Image */}
-  <Image
-    src={heroImage}
-    alt="Hero Background"
-    class="absolute inset-0 -z-10 h-full w-full object-cover object-center hidden md:block"
-  />
+  <div class="hero-image-wrapper absolute inset-0 -z-10 h-full w-full overflow-hidden">
+    <Image
+      src={heroImage}
+      alt="Hero Background"
+      class="h-full w-full object-cover object-center hidden md:block"
+    />
+  </div>
   {/* Mobile Image */}
-  <Image
-    src={heroMobileImage}
-    alt="Hero Background Mobile"
-    class="absolute inset-0 -z-10 h-full w-full object-cover object-center block md:hidden"
-  />
+  <div class="hero-image-mobile-wrapper absolute inset-0 -z-10 h-full w-full overflow-hidden">
+    <Image
+      src={heroMobileImage}
+      alt="Hero Background Mobile"
+      class="h-full w-full object-cover object-center block md:hidden"
+    />
+  </div>
 
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-32 sm:py-48 lg:py-56 text-left">
     <div class="relative max-w-xl">
       <!-- CARD UTAMA -->
-      <div class="relative rounded-lg bg-[#0990fe]/90 p-10 text-white shadow-lg">
+      <div class="hero-card relative rounded-3xl bg-[#0990fe]/95 p-8 md:p-12 text-white shadow-2xl backdrop-blur-sm border border-white/10">
         <h1 class="hero-title text-4xl font-bold tracking-tight sm:text-6xl">
           Kursus dan Mengaji Online
         </h1>
 
-        <p class="hero-desc mt-6 text-lg leading-8">
+        <p class="hero-desc mt-6 text-lg leading-8 text-blue-50">
           Ngajiin.id merupakan platform belajar secara daring. Dengan menjadikan kitab-kitab turath sebagai rujukan dan kajian utama. Kami juga menyusun diktat untuk beberapa materi seperti pembelajaran ilmu mantik, bahasa Arab, ilmu Al-Quran, dan ilmu alat lainnya untuk memudahkan para peserta dalam memahami dasar-dasar keilmuan Islam.
         </p>
 
-        <div class="hero-btns mt-10 flex items-center gap-x-6">
+        <div class="hero-btns mt-10 flex flex-wrap items-center gap-6">
           <a
             href="https://wa.me/+6281334225986/?text=Assalamu%27alaikum%20wr.%20wb.%0ASaya%20ingin%20menjadi%20peserta%20di%20Ngajiin.id."
-            class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-blue-600 shadow-sm hover:bg-blue-50"
+            class="rounded-full bg-white px-8 py-4 text-sm font-bold text-blue-600 shadow-lg hover:bg-blue-50 transition-all duration-300 transform hover:-translate-y-1"
           >
             Daftar Sekarang
           </a>
 
-          <a href="/program" class="text-sm font-semibold leading-6 text-white">
+          <a href="#program" class="text-sm font-bold leading-6 text-white hover:text-blue-100 transition-colors">
             Lihat Program →
           </a>
         </div>
@@ -50,41 +54,38 @@ import heroMobileImage from '../assets/hero-mobile.png';
 <script>
   import { gsap } from 'gsap';
 
-  const tl = gsap.timeline({ defaults: { ease: 'power3.inOut' } });
+  const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
 
-  // Set initial state to invisible
-  gsap.set(['.hero-title', '.hero-desc', '.hero-btns'], { opacity: 0 });
+  // Set initial state
+  gsap.set(['.hero-image-wrapper', '.hero-image-mobile-wrapper'], { opacity: 0, x: 100 });
+  gsap.set('.hero-card', { opacity: 0, x: -100, scale: 0.9 });
+  gsap.set(['.hero-title', '.hero-desc', '.hero-btns'], { opacity: 0, y: 30 });
 
-  tl.fromTo(
-    '.hero-title',
-    { y: 20 },
-    {
-      duration: 0.8,
-      y: 0,
-      opacity: 1,
-      delay: 0.3,
-    }
-  );
-
-  tl.fromTo(
-    '.hero-desc',
-    { y: 20 },
-    {
-      duration: 0.8,
-      y: 0,
-      opacity: 1,
-    },
-    '-=0.6'
-  );
-
-  tl.fromTo(
-    '.hero-btns',
-    { y: 20 },
-    {
-      duration: 0.8,
-      y: 0,
-      opacity: 1,
-    },
-    '-=0.6'
-  );
+  tl.to(['.hero-image-wrapper', '.hero-image-mobile-wrapper'], {
+    duration: 1,
+    x: 0,
+    opacity: 1,
+    delay: 0.1,
+  })
+  .to('.hero-card', {
+    duration: 0.7,
+    x: 0,
+    opacity: 1,
+    scale: 1,
+  }, "-=0.7")
+  .to('.hero-title', {
+    duration: 0.5,
+    y: 0,
+    opacity: 1,
+  }, '-=0.5')
+  .to('.hero-desc', {
+    duration: 0.5,
+    y: 0,
+    opacity: 1,
+  }, '-=0.4')
+  .to('.hero-btns', {
+    duration: 0.5,
+    y: 0,
+    opacity: 1,
+  }, '-=0.4');
 </script>

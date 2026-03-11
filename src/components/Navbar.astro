@@ -9,38 +9,39 @@ const navItems = [
 ];
 ---
 
-<nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
+<nav id="navbar" class="fixed top-0 left-1/2 -translate-x-1/2 w-full z-50 transition-all duration-500 ease-in-out">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16">
+    <div class="flex items-center justify-between h-16 md:h-20 transition-all duration-500" id="navbar-inner">
       <div class="flex items-center">
         <div class="flex-shrink-0">
           <a href="/">
-            <img id="navbar-logo" src={logo.src} alt="Ngajiin.id Logo" class="h-12 w-auto transition-all duration-300" />
+            <img id="navbar-logo" src={logo.src} alt="Ngajiin.id Logo" class="h-10 md:h-12 w-auto transition-all duration-300" />
           </a>
         </div>
       </div>
       <div class="hidden md:block">
-        <div class="ml-10 flex items-baseline space-x-4">
+        <div class="ml-10 flex items-center space-x-6">
           {navItems.map((item) => (
             <a
               href={item.href}
-              class="nav-link text-black hover:text-[#0990fe] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300"
+              class="nav-link text-gray-800 hover:text-[#0990fe] px-1 py-2 text-sm font-semibold transition-all duration-300 relative group"
             >
               {item.label}
+              <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#0990fe] transition-all duration-300 group-hover:w-full"></span>
             </a>
           ))}
 
           <!-- BUTTON DAFTAR -->
           <a
             href="https://wa.me/+6281334225986/?text=Assalamu%27alaikum%20wr.%20wb.%0ASaya%20ingin%20menjadi%20peserta%20di%20Ngajiin.id."
-            class="nav-cta ml-2 rounded-md bg-[#0990fe] px-4 py-2 text-sm font-semibold text-white shadow hover:bg-[#077edb] transition"
+            class="nav-cta ml-4 rounded-full bg-[#0990fe] px-6 py-2.5 text-sm font-bold text-white shadow-md hover:bg-[#077edb] hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
           >
             Daftar Sekarang
           </a>
         </div>
       </div>
       <div class="-mr-2 flex md:hidden">
-        <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-blue-800 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+        <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-full text-gray-600 hover:bg-gray-100 focus:outline-none transition-colors" aria-controls="mobile-menu" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
           <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -53,11 +54,17 @@ const navItems = [
     </div>
   </div>
 
-  <div class="hidden md:hidden" id="mobile-menu">
-    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-blue-800 bg-opacity-90 backdrop-blur-sm rounded-b-lg">
+  <div class="hidden md:hidden px-4 pb-4" id="mobile-menu">
+    <div class="space-y-1 px-2 pt-2 pb-3 bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-gray-100">
       {navItems.map((item) => (
-        <a href={item.href} class="text-gray-300 hover:bg-blue-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">{item.label}</a>
+        <a href={item.href} class="text-gray-700 hover:bg-blue-50 hover:text-blue-600 block px-4 py-3 rounded-xl text-base font-medium transition-colors">{item.label}</a>
       ))}
+      <a
+        href="https://wa.me/+6281334225986/?text=Assalamu%27alaikum%20wr.%20wb.%0ASaya%20ingin%20menjadi%20peserta%20di%20Ngajiin.id."
+        class="block w-full text-center mt-4 rounded-xl bg-[#0990fe] px-4 py-3 text-base font-bold text-white shadow-md"
+      >
+        Daftar Sekarang
+      </a>
     </div>
   </div>
 </nav>
@@ -66,6 +73,7 @@ const navItems = [
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   const mobileMenu = document.getElementById('mobile-menu');
   const navbar = document.getElementById('navbar');
+  const navbarInner = document.getElementById('navbar-inner');
   const navbarLogo = document.getElementById('navbar-logo');
   const navLinks = document.querySelectorAll('.nav-link');
 
@@ -79,41 +87,58 @@ const navItems = [
   }
 
   const updateNavbar = () => {
-    if (!navbar || !navbarLogo) return;
+    if (!navbar || !navbarLogo || !navbarInner) return;
 
-    const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '';
-    const isScrolled = window.scrollY > 50;
+    const isScrolled = window.scrollY > 20;
+    
+    // Gunakan gaya floating jika di-scroll ATAU jika bukan di home page
+    const shouldShowBox = isScrolled;
 
-    if (isScrolled || !isHomePage) {
+    if (shouldShowBox) {
       navbar.classList.add(
-        'bg-[#1e2939]',
-        'bg-opacity-100',
-        'backdrop-blur-sm',
-        'shadow-lg'
+        'top-2',
+        'w-[95%]',
+        'lg:w-[90%]',
+        'max-w-7xl',
+        'rounded-xl',
+        'bg-white',
+        'backdrop-blur-lg',
+        'shadow-xl',
       );
-      navbarLogo.classList.add('invert');
+      navbar.classList.remove('top-0', 'w-full', 'rounded-none');
+      navbarInner.classList.replace('h-16', 'h-14');
+      navbarInner.classList.replace('md:h-20', 'md:h-16');
+      
       navLinks.forEach(link => {
-        link.classList.remove('text-black');
-        link.classList.add('text-white');
+        link.classList.add('text-gray-800');
+        link.classList.remove('text-white');
       });
     } else {
       navbar.classList.remove(
-        'bg-[#1e2939]',
-        'bg-opacity-100',
-        'backdrop-blur-sm',
-        'shadow-lg'
+        'top-2',
+        'w-[95%]',
+        'lg:w-[90%]',
+        'max-w-7xl',
+        'rounded-xl',
+        'bg-white/80',
+        'backdrop-blur-lg',
+        'shadow-xl',
       );
-      navbarLogo.classList.remove('invert');
+      navbar.classList.add('top-0', 'w-full', 'rounded-none');
+      navbarInner.classList.replace('h-14', 'h-16');
+      navbarInner.classList.replace('md:h-16', 'md:h-20');
+      
+      // Sesuaikan warna link saat di paling atas (transparan)
+      // Jika hero section gelap, mungkin butuh text-white. 
+      // Tapi di sini defaultnya text-gray-800 sesuai desain awal.
       navLinks.forEach(link => {
+        link.classList.add('text-gray-800');
         link.classList.remove('text-white');
-        link.classList.add('text-black');
       });
     }
   };
 
   window.addEventListener('scroll', updateNavbar);
-  // Run on load
   document.addEventListener('DOMContentLoaded', updateNavbar);
-  // Also run immediately in case DOMContentLoaded already fired
   updateNavbar();
 </script>
