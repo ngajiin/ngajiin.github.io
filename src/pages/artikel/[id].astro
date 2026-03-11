@@ -1,0 +1,168 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('artikel');
+  return articles.map(article => ({
+    params: { id: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+
+const formattedDate = article.data.pubDate.toLocaleDateString('id-ID', {
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric'
+});
+---
+
+<Layout 
+  title={`${article.data.title} - Ngajiin.id`}
+  description={article.data.description}
+  image={article.data.image.src}
+>
+  <main class="pt-24 pb-20 bg-gray-50 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Breadcrumb / Back Navigation -->
+      <nav class="mb-8 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400">
+        <a href="/" class="hover:text-[#0990fe] transition-colors">Beranda</a>
+        <span>/</span>
+        <a href="/artikel" class="hover:text-[#0990fe] transition-colors">Artikel</a>
+        <span>/</span>
+        <span class="text-gray-900 truncate max-w-[200px]">{article.data.title}</span>
+      </nav>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        
+        <!-- Main Content Column -->
+        <article class="lg:col-span-8 bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+          
+          <!-- Article Header -->
+          <header class="p-8 md:p-12 pb-6">
+            <div class="inline-block bg-blue-50 text-[#0990fe] px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-[0.2em] mb-6">
+              {article.data.category}
+            </div>
+            
+            <h1 class="text-3xl md:text-5xl font-serif font-bold text-gray-900 leading-tight mb-8">
+              {article.data.title}
+            </h1>
+
+            <div class="flex flex-wrap items-center gap-6 py-6 border-y border-gray-50">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm">
+                  {article.data.author.charAt(0)}
+                </div>
+                <div>
+                  <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Penulis</p>
+                  <p class="text-xs font-bold text-gray-900">{article.data.author}</p>
+                </div>
+              </div>
+              
+              <div class="h-8 w-px bg-gray-100 hidden sm:block"></div>
+
+              <div>
+                <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Diterbitkan</p>
+                <time datetime={article.data.pubDate.toISOString()} class="text-xs font-bold text-gray-900">
+                  {formattedDate}
+                </time>
+              </div>
+            </div>
+          </header>
+
+          <!-- Featured Image -->
+          <div class="aspect-video w-full px-8 md:px-12">
+            <div class="w-full h-full rounded-2xl overflow-hidden shadow-xl">
+              <Image 
+                src={article.data.image} 
+                alt={article.data.title}
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+
+          <!-- Article Body -->
+          <div class="p-8 md:p-12 prose prose-lg prose-blue max-w-none">
+            <Content />
+          </div>
+
+          <!-- Article Footer -->
+          <footer class="px-8 md:px-12 py-8 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Bagikan:</span>
+              <div class="flex gap-2">
+                <div class="w-8 h-8 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-gray-400 hover:text-[#0990fe] cursor-pointer transition-colors">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </div>
+                <div class="w-8 h-8 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-gray-400 hover:text-[#0990fe] cursor-pointer transition-colors">
+                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.937 3.659 1.432 5.631 1.433h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                </div>
+              </div>
+            </div>
+            <a href="/artikel" class="text-xs font-black uppercase tracking-[0.2em] text-[#0990fe] hover:translate-x-2 transition-transform inline-flex items-center gap-2">
+              ← Kembali ke Daftar
+            </a>
+          </footer>
+        </article>
+
+        <!-- Sidebar Column -->
+        <aside class="lg:col-span-4 space-y-8 lg:sticky lg:top-24 self-start">
+          
+          <!-- Author Profile -->
+          <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm text-center">
+            <div class="w-20 h-20 rounded-full bg-[#0990fe] mx-auto mb-4 flex items-center justify-center text-white text-3xl font-serif">
+               {article.data.author.charAt(0)}
+            </div>
+            <h3 class="font-bold text-gray-900 mb-1">{article.data.author}</h3>
+            <p class="text-[10px] font-black text-[#0990fe] uppercase tracking-widest mb-4 italic">Pengajar Ngajiin.id</p>
+            <p class="text-xs text-gray-500 leading-relaxed mb-6">Fokus pada kajian kitab Turath Fiqih, Aqidah, dan Akhlak.</p>
+            <button class="w-full py-3 rounded-xl border border-blue-100 text-[#0990fe] text-[10px] font-black uppercase tracking-widest hover:bg-blue-50 transition-colors">
+              Profil Pengajar
+            </button>
+          </div>
+
+          <!-- Quick Navigation Widget -->
+          <div class="bg-[#1e2939] p-8 rounded-3xl shadow-xl text-white overflow-hidden relative group">
+             <div class="absolute -top-10 -right-10 w-32 h-32 bg-[#0990fe]/20 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+             <h3 class="text-lg font-black uppercase tracking-widest mb-4">Grup Kajian</h3>
+             <p class="text-xs text-white/70 mb-6 leading-relaxed">Jangan ketinggalan ringkasan kajian terbaru setiap harinya.</p>
+             <a href="#" class="block w-full text-center bg-[#0990fe] text-white font-black py-3 rounded-xl text-[10px] uppercase tracking-widest hover:bg-[#077edb] transition-all shadow-lg">
+               Gabung Sekarang
+             </a>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style is:global>
+  @reference "../../styles/global.css";
+
+  /* Styling for Markdown Content */
+  .prose h2 {
+    @apply text-2xl md:text-3xl mt-12 mb-6 font-serif font-bold text-gray-900 border-l-4 border-[#0990fe] pl-4;
+  }
+  .prose p {
+    @apply mb-6 leading-relaxed text-gray-700;
+  }
+  .prose ul {
+    @apply list-disc list-inside mb-8 space-y-3 text-gray-700 bg-blue-50/50 p-6 rounded-2xl border border-blue-50;
+  }
+  .prose li {
+    @apply pl-2;
+  }
+  .prose strong {
+    @apply font-bold text-gray-900;
+  }
+  .prose blockquote {
+    @apply border-l-4 border-[#0990fe] pl-6 italic text-xl text-gray-500 my-10 font-serif;
+  }
+</style>

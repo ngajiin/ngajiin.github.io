@@ -1,65 +1,27 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 
-import mandiImg from '../assets/artikel/mandi.webp';
-import puasaImg from '../assets/artikel/puasa.webp';
-import sholatImg from '../assets/artikel/sholat.webp';
-import wudluImg from '../assets/artikel/wudlu.webp';
-import zakatImg from '../assets/artikel/zakat.webp';
+// Fetch articles from content collection
+const allArticles = await getCollection('artikel');
 
-// Dummy data for articles
-const articles = [
-  {
-    id: 1,
-    title: 'Hukum-hukum Air: Hal yang Mewajibkan Mandi Besar',
-    category: 'Safinat al-Najah',
-    author: 'Ust. Achmad Syauqi Hifni, Lc., M.Ag',
-    image: mandiImg,
-    date: '21 Feb 2026',
-    excerpt: 'Pembahasan mendalam mengenai jenis-jenis air yang dapat digunakan untuk bersuci dan rukun mandi besar...'
-  },
-  {
-    id: 2,
-    title: 'Syarat Wudhu: Hal yang Membatalkan Wudhu',
-    category: 'Safinat al-Najah',
-    author: 'Ust. Achmad Syauqi Hifni, Lc., M.Ag',
-    image: wudluImg,
-    date: '20 Feb 2026',
-    excerpt: 'Mengenal batasan dan hal-hal yang sering dianggap sepele namun ternyata dapat membatalkan kesucian wudhu kita...'
-  },
-  {
-    id: 3,
-    title: 'Rukun Salat: Syarat Sahnya Salat',
-    category: 'Safinat al-Najah',
-    author: 'Ust. Achmad Syauqi Hifni, Lc., M.Ag',
-    image: sholatImg,
-    date: '19 Feb 2026',
-    excerpt: 'Salat adalah tiang agama. Mari pelajari kembali rukun-rukun salat agar ibadah kita semakin sempurna sesuai syariat...'
-  },
-  {
-    id: 4,
-    title: 'Puasa Ramadhan: Niat dan Hal yang Membatalkan',
-    category: 'Safinat al-Najah',
-    author: 'Ust. Achmad Syauqi Hifni, Lc., M.Ag',
-    image: puasaImg,
-    date: '18 Feb 2026',
-    excerpt: 'Menyambut bulan suci dengan ilmu. Ringkasan hukum puasa mulai dari niat hingga hal-hal yang membatalkannya...'
-  },
-  {
-    id: 5,
-    title: 'Zakat Fitrah: Ketentuannya dalam Islam',
-    category: 'Safinat al-Najah',
-    author: 'Ust. Achmad Syauqi Hifni, Lc., M.Ag',
-    image: zakatImg,
-    date: '17 Feb 2026',
-    excerpt: 'Kewajiban setiap muslim di akhir Ramadhan. Berapa takarannya dan siapa saja yang berhak menerimanya?'
-  },
-];
+// Sort by date descending
+const sortedArticles = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const featuredArticle = articles[0];
-const latestArticles = articles.slice(1);
-const recommendedArticles = articles.slice(1, 3); // For the new grid
+const articles = sortedArticles.map(article => ({
+  id: article.id,
+  title: article.data.title,
+  category: article.data.category,
+  author: article.data.author,
+  image: article.data.image,
+  date: article.data.pubDate.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase(),
+  excerpt: article.data.description || ''
+}));
+
+const featuredArticle = articles.find(a => allArticles.find(oa => oa.id === a.id)?.data.featured) || articles[0];
+const latestArticles = articles.filter(a => a.id !== featuredArticle.id);
+const recommendedArticles = latestArticles.slice(0, 2); 
 ---
 
 <Layout 
@@ -75,7 +37,7 @@ const recommendedArticles = articles.slice(1, 3); // For the new grid
         <div class="lg:col-span-2 space-y-10">
           
           <!-- Featured Hero -->
-          <div class="relative aspect-video lg:aspect-[16/9] w-full overflow-hidden rounded-2xl shadow-2xl group cursor-pointer bg-gray-200">
+          <a href={`/artikel/${featuredArticle.id}`} class="relative block aspect-video lg:aspect-[16/9] w-full overflow-hidden rounded-2xl shadow-2xl group bg-gray-200">
             <Image 
               src={featuredArticle.image} 
               alt={featuredArticle.title}
@@ -114,22 +76,22 @@ const recommendedArticles = articles.slice(1, 3); // For the new grid
                 </div>
               </div>
             </div>
-          </div>
+          </a>
           
           <!-- Category Quick Links -->
           <div class="grid grid-cols-3 gap-0 py-6 border-y border-gray-200 bg-white rounded-xl shadow-sm">
-            <div class="text-center border-r border-gray-100 group cursor-pointer">
+            <a href="#" class="text-center border-r border-gray-100 group">
                 <p class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Kategori</p>
                 <p class="text-xs font-bold text-gray-900 uppercase group-hover:text-[#0990fe] transition-colors">Fiqih Ibadah</p>
-            </div>
-            <div class="text-center border-r border-gray-100 group cursor-pointer">
+            </a>
+            <a href="#" class="text-center border-r border-gray-100 group">
                 <p class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Kategori</p>
                 <p class="text-xs font-bold text-gray-900 uppercase group-hover:text-[#0990fe] transition-colors">Aqidah Dasar</p>
-            </div>
-            <div class="text-center group cursor-pointer">
+            </a>
+            <a href="#" class="text-center group">
                 <p class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Kategori</p>
                 <p class="text-xs font-bold text-gray-900 uppercase group-hover:text-[#0990fe] transition-colors">Akhlak Mulia</p>
-            </div>
+            </a>
           </div>
 
           <!-- NEW SECTION: Discovery Grid (Filling the empty space) -->
@@ -141,7 +103,7 @@ const recommendedArticles = articles.slice(1, 3); // For the new grid
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
               {recommendedArticles.map((article) => (
-                <div class="group cursor-pointer">
+                <a href={`/artikel/${article.id}`} class="group block">
                   <div class="relative aspect-[16/10] overflow-hidden rounded-2xl mb-4 shadow-lg">
                     <Image 
                       src={article.image} 
@@ -163,7 +125,7 @@ const recommendedArticles = articles.slice(1, 3); // For the new grid
                       {article.excerpt}
                     </p>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
           </div>
@@ -179,7 +141,7 @@ const recommendedArticles = articles.slice(1, 3); // For the new grid
             
             <div class="space-y-6">
               {latestArticles.map((article) => (
-                <div class="flex gap-4 group cursor-pointer">
+                <a href={`/artikel/${article.id}`} class="flex gap-4 group">
                   <div class="relative w-24 h-24 flex-shrink-0 overflow-hidden rounded-xl shadow-lg shadow-blue-900/5">
                     <Image 
                       src={article.image} 
@@ -197,7 +159,7 @@ const recommendedArticles = articles.slice(1, 3); // For the new grid
                       <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{article.date}</p>
                     </div>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
           </div>
