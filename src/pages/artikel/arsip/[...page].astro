@@ -1,13 +1,18 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
 import { Image } from 'astro:assets';
+import type { Page, GetStaticPaths } from 'astro';
 
-export async function getStaticPaths({ paginate }) {
+export const getStaticPaths = (async ({ paginate }) => {
   const allArticles = await getCollection('artikel');
   const sortedArticles = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
   
   return paginate(sortedArticles, { pageSize: 9 });
+}) satisfies GetStaticPaths;
+
+interface Props {
+  page: Page<CollectionEntry<'artikel'>>;
 }
 
 const { page } = Astro.props;
