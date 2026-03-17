@@ -2,7 +2,7 @@
 title: "Perkara Yang Mewajibkan Mandi Besar"
 description: "Mandi besar merupakan salah satu bentuk bersuci dalam Islam yang memiliki konsekuensi hukum langsung terhadap sah atau tidaknya ibadah seseorang"
 author: "Ust. Achmad Syauqi Hifni, Lc., M.Ag"
-pubDate: 2026-02-21
+pubDate: 2026-03-11
 category: "Safinat al-Najah"
 image: "./cover.webp"
 featured: true
