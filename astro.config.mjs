@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig } from 'astro:config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
@@ -7,7 +7,11 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://ngajiin.web.id',
   base: '/',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      customPages: ['https://ngajiin.web.id/artikel/arsip'],
+    })
+  ],
   vite: {
     plugins: [tailwindcss()],
   },
