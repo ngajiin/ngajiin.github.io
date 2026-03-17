@@ -5,7 +5,7 @@ author: "Ust. Achmad Syauqi Hifni, Lc., M.Ag"
 pubDate: 2026-03-17
 category: "Safinat al-Najah"
 image: "./cover.webp"
-featured: true
+featured: false
 tags: ["Fiqih", "Ibadah"]
 ---
 Mandi besar atau ghusl merupakan kewajiban dalam kondisi tertentu bagi setiap Muslim. Namun dalam praktiknya, tidak semua orang memahami bahwa sah atau tidaknya mandi besar ditentukan oleh terpenuhinya rukun-rukun tertentu sebagaimana dijelaskan dalam kitab-kitab fikih.
@@ -22,19 +22,23 @@ Artinya: “Saya niat mandi untuk menghilangkan hadas besar karena Allah Ta‘al
 
 Rukun berikutnya adalah meratakan air ke seluruh bagian tubuh tanpa terkecuali, termasuk rambut dan kulit yang tertutup lipatan.
 Air harus sampai ke:
-• Seluruh permukaan kulit
-• Rambut dan kulit kepala
-• Lipatan tubuh
-• Bagian dalam pusar
-• Sela-sela jari tangan dan kaki
+
+- Seluruh permukaan kulit
+- Rambut dan kulit kepala
+- Lipatan tubuh
+- Bagian dalam pusar
+- Sela-sela jari tangan dan kaki
+
 Apabila ada bagian tubuh yang terhalang benda kedap air seperti cat, kuteks, atau kotoran tebal yang menghalangi sampainya air, maka mandi besar tidak sah hingga penghalang tersebut dihilangkan.
 Perbedaan dengan Sunnah Mandi Besar
 Selain rukun, terdapat pula sunnah-sunnah mandi besar seperti:
-• Membaca basmalah
-• Berwudhu terlebih dahulu
-• Menggosok tubuh
-• Mendahulukan anggota tubuh sebelah kanan
-• Mengulang basuhan tiga kali
+
+- Membaca basmalah
+- Berwudhu terlebih dahulu
+- Menggosok tubuh
+- Mendahulukan anggota tubuh sebelah kanan
+- Mengulang basuhan tiga kali
+
 Namun sunnah-sunnah tersebut tidak memengaruhi keabsahan mandi jika ditinggalkan. Berbeda dengan rukun yang bersifat wajib.
 Pentingnya Memahami Rukun
 Pemahaman terhadap rukun mandi besar menjadi krusial karena berkaitan langsung dengan sahnya ibadah seperti salat, puasa, membaca Al-Qur’an, dan tawaf.

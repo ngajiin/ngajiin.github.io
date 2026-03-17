@@ -22,6 +22,10 @@ const articles = sortedArticles.map(article => ({
 const featuredArticle = articles.find(a => allArticles.find(oa => oa.id === a.id)?.data.featured) || articles[0];
 const latestArticles = articles.filter(a => a.id !== featuredArticle.id);
 const recommendedArticles = latestArticles.slice(0, 2); 
+
+// Extract unique categories and tags
+const uniqueCategories = [...new Set(allArticles.map(a => a.data.category))].slice(0, 3);
+const uniqueTags = [...new Set(allArticles.flatMap(a => a.data.tags || []))];
 ---
 
 <Layout 
@@ -80,24 +84,18 @@ const recommendedArticles = latestArticles.slice(0, 2);
           
           <!-- Category Quick Links -->
           <div class="grid grid-cols-3 gap-0 py-6 border-y border-gray-200 bg-white rounded-xl shadow-sm">
-            <a href="#" class="text-center border-r border-gray-100 group">
-                <p class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Kategori</p>
-                <p class="text-xs font-bold text-gray-900 uppercase group-hover:text-[#0990fe] transition-colors">Fiqih Ibadah</p>
-            </a>
-            <a href="#" class="text-center border-r border-gray-100 group">
-                <p class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Kategori</p>
-                <p class="text-xs font-bold text-gray-900 uppercase group-hover:text-[#0990fe] transition-colors">Aqidah Dasar</p>
-            </a>
-            <a href="#" class="text-center group">
-                <p class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Kategori</p>
-                <p class="text-xs font-bold text-gray-900 uppercase group-hover:text-[#0990fe] transition-colors">Akhlak Mulia</p>
-            </a>
+            {uniqueCategories.map((cat, index) => (
+              <a href={`/artikel/kategori/${cat.toLowerCase().replace(/\s+/g, '-')}`} class={`text-center group ${index < uniqueCategories.length - 1 ? 'border-r border-gray-100' : ''}`}>
+                  <p class="label-xs text-gray-400 mb-1">Kategori</p>
+                  <p class="text-xs font-bold font-sans text-gray-900 uppercase group-hover:text-[#0990fe] transition-colors">{cat}</p>
+              </a>
+            ))}
           </div>
 
           <!-- NEW SECTION: Discovery Grid (Filling the empty space) -->
           <div class="space-y-8">
             <div class="flex items-center justify-between">
-              <h2 class="text-xl font-black text-gray-900 uppercase tracking-widest">Kajian Pilihan</h2>
+              <h2 class="text-xl font-bold font-serif text-gray-900 tracking-tight">Kajian Pilihan</h2>
               <div class="h-[2px] flex-grow mx-6 bg-gray-100"></div>
             </div>
 
@@ -114,14 +112,14 @@ const recommendedArticles = latestArticles.slice(0, 2);
                   </div>
                   <div class="space-y-2">
                     <div class="flex items-center gap-3">
-                      <span class="text-[10px] font-bold text-[#0990fe] uppercase tracking-wider">{article.category}</span>
+                      <a href={`/artikel/kategori/${article.category.toLowerCase().replace(/\s+/g, '-')}`} class="label-xs text-[#0990fe] tracking-wider hover:underline">{article.category}</a>
                       <span class="w-1 h-1 rounded-full bg-gray-300"></span>
-                      <span class="text-[10px] font-medium text-gray-400 uppercase tracking-wider">{article.date}</span>
+                      <span class="label-xs text-gray-400 tracking-wider">{article.date}</span>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 leading-tight group-hover:text-[#0990fe] transition-colors">
+                    <h3 class="text-xl font-bold font-serif text-gray-900 leading-tight group-hover:text-[#0990fe] transition-colors">
                       {article.title}
                     </h3>
-                    <p class="text-sm text-gray-500 line-clamp-2 leading-relaxed">
+                    <p class="text-sm font-sans text-gray-500 line-clamp-2 leading-relaxed">
                       {article.excerpt}
                     </p>
                   </div>
@@ -134,7 +132,7 @@ const recommendedArticles = latestArticles.slice(0, 2);
         <!-- Right Section: Sidebar Artikel (Sticky) -->
         <aside class="space-y-8 lg:sticky lg:top-28 self-start">
           <div class="relative">
-            <h2 class="text-lg font-black text-gray-900 uppercase tracking-[0.15em] mb-6 flex items-center gap-3">
+            <h2 class="text-lg font-bold font-serif text-gray-900 tracking-tight mb-6 flex items-center gap-3">
               <span class="w-8 h-[2px] bg-[#0990fe]"></span>
               Artikel Terbaru
             </h2>
@@ -151,12 +149,12 @@ const recommendedArticles = latestArticles.slice(0, 2);
                     <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
                   </div>
                   <div class="flex flex-col justify-center space-y-2">
-                    <h3 class="text-sm font-bold text-gray-800 line-clamp-2 group-hover:text-[#0990fe] transition-colors leading-snug uppercase tracking-tight">
+                    <h3 class="text-sm font-bold font-serif text-gray-800 line-clamp-2 group-hover:text-[#0990fe] transition-colors leading-snug">
                       {article.title}
                     </h3>
                     <div class="flex items-center gap-2">
                       <span class="w-4 h-[1px] bg-gray-300"></span>
-                      <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{article.date}</p>
+                      <p class="label-xs text-gray-400 tracking-wider">{article.date}</p>
                     </div>
                   </div>
                 </a>
@@ -167,42 +165,47 @@ const recommendedArticles = latestArticles.slice(0, 2);
           <!-- Sidebar CTA / Newsletter -->
           <div class="bg-gradient-to-br from-[#0c1e33] to-[#0990fe] p-8 rounded-3xl shadow-2xl text-white relative overflow-hidden group">
             <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
-            <h3 class="text-xl font-black uppercase tracking-wider mb-2 relative z-10 text-white">Grup Kajian</h3>
-            <p class="text-xs text-white/70 mb-6 leading-relaxed relative z-10">Dapatkan notifikasi ringkasan kajian kitab turath langsung di WhatsApp Anda.</p>
-            <button class="w-full bg-white text-[#0c1e33] font-black py-3 rounded-xl text-xs uppercase tracking-widest hover:bg-gray-100 transition-all shadow-xl relative z-10">
+            <h3 class="text-xl font-bold font-serif tracking-tight mb-2 relative z-10 text-white">Grup Kajian</h3>
+            <p class="text-xs font-sans text-white/70 mb-6 leading-relaxed relative z-10">Dapatkan informasi kajian di Grup WhatsApp Anda.</p>
+            <a 
+              href="https://chat.whatsapp.com/HLG13GkZOAc1Zvl77557wd" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="block w-full text-center bg-white text-[#0c1e33] font-bold font-sans py-3 rounded-xl text-xs uppercase tracking-widest hover:bg-gray-100 transition-all shadow-xl relative z-10"
+            >
               Gabung Sekarang
-            </button>
+            </a>
           </div>
 
           <!-- Popular Categories -->
           <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-            <h2 class="text-xs font-black uppercase tracking-[0.2em] mb-4 text-gray-400">Topik Populer</h2>
+            <h2 class="label-sm text-gray-400 mb-4">Topik Populer</h2>
             <div class="flex flex-wrap gap-2">
-                {['Fiqih', 'Aqidah', 'Adab', 'Tafsir', 'Hadits'].map((cat) => (
-                  <span class="bg-gray-50 hover:bg-blue-50 hover:text-[#0990fe] border border-gray-100 px-4 py-1.5 rounded-full text-[10px] font-bold tracking-wider cursor-pointer transition-all">
-                    {cat}
-                  </span>
+                {uniqueTags.map((tag) => (
+                  <a href={`/artikel/topik/${tag.toLowerCase().replace(/\s+/g, '-')}`} class="bg-gray-50 hover:bg-blue-50 hover:text-[#0990fe] border border-gray-100 px-4 py-1.5 rounded-full text-[10px] font-bold font-sans tracking-wider cursor-pointer transition-all">
+                    {tag}
+                  </a>
                 ))}
             </div>
           </div>
 
           <!-- Kalam Hikmah Widget -->
           <div class="bg-blue-50/50 p-6 rounded-2xl border border-blue-100">
-            <h2 class="text-[10px] font-black uppercase tracking-[0.2em] mb-4 text-[#0990fe]">Kalam Hikmah</h2>
+            <h2 class="label-xs text-[#0990fe] mb-4">Kalam Hikmah</h2>
             <blockquote class="text-sm font-serif italic text-gray-600 leading-relaxed">
               "Barangsiapa yang menempuh jalan untuk mencari ilmu, maka Allah akan memudahkan baginya jalan menuju surga."
             </blockquote>
-            <p class="text-[10px] font-bold text-gray-400 mt-4 uppercase tracking-wider">— HR. Muslim</p>
+            <p class="label-xs text-gray-400 mt-4 tracking-wider">— HR. Muslim</p>
           </div>
         </aside>
       </div>
 
       <!-- Footer Action -->
       <div class="mt-20 max-w-3xl mx-auto">
-        <a href="#" class="group block relative overflow-hidden rounded-2xl shadow-xl">
+        <a href="/artikel/arsip" class="group block relative overflow-hidden rounded-2xl shadow-xl">
           <div class="bg-white border border-gray-100 p-8 text-center transition-transform duration-500 group-hover:-translate-y-2">
               <p class="text-lg font-serif italic text-gray-500 mb-2">Ingin menggali lebih dalam?</p>
-              <p class="text-sm font-black text-gray-900 uppercase tracking-[0.2em]">
+              <p class="text-sm font-bold font-sans text-gray-900 uppercase tracking-widest">
                 Baca Lebih Banyak Artikel <span class="text-[#0990fe] ml-2 inline-block transition-transform group-hover:translate-x-2">→</span>
               </p>
           </div>

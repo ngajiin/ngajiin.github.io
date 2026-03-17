@@ -1,0 +1,102 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+
+export async function getStaticPaths({ paginate }) {
+  const allArticles = await getCollection('artikel');
+  
+  // Get unique tags
+  const tags = [...new Set(allArticles.flatMap(a => a.data.tags || []))];
+  
+  return tags.flatMap(tag => {
+    const filteredArticles = allArticles
+      .filter(a => (a.data.tags || []).includes(tag))
+      .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+      
+    const tagSlug = tag.toLowerCase().replace(/\s+/g, '-');
+    
+    return paginate(filteredArticles, {
+      params: { tag: tagSlug },
+      props: { tagName: tag },
+      pageSize: 9,
+    });
+  });
+}
+
+const { page, tagName } = Astro.props;
+const { tag } = Astro.params;
+---
+
+<Layout 
+  title={`Topik: ${tagName} - Halaman ${page.currentPage} - Ngajiin.id`}
+>
+  <main class="pt-32 pb-20 bg-gray-50 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Header Arsip -->
+      <div class="mb-12 text-center">
+        <p class="label-xs text-[#0990fe] mb-2">Topik Kajian</p>
+        <h1 class="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-4">#{tagName}</h1>
+        <div class="h-1 w-20 bg-[#0990fe] mx-auto rounded-full"></div>
+      </div>
+
+      <!-- Grid Artikel (3x3) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        {page.data.map((article) => (
+          <a href={`/artikel/${article.id}`} class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
+            <div class="relative aspect-video overflow-hidden">
+              <Image 
+                src={article.data.image} 
+                alt={article.data.title}
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+            </div>
+            <div class="p-6">
+              <p class="label-xs text-gray-400 mb-3">
+                {article.data.pubDate.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase()}
+              </p>
+              <h3 class="text-xl font-serif font-semibold text-gray-900 mb-3 group-hover:text-[#0990fe] transition-colors line-clamp-2 leading-snug">
+                {article.data.title}
+              </h3>
+              <p class="text-sm font-sans text-gray-500 line-clamp-2 leading-relaxed">
+                {article.data.description}
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <!-- Pagination -->
+      <nav class="flex items-center justify-center gap-2">
+        {page.url.prev && (
+          <a href={page.url.prev} class="p-2 rounded-xl border border-gray-200 text-gray-600 hover:bg-[#0990fe] hover:text-white hover:border-[#0990fe] transition-all group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </a>
+        )}
+        
+        <div class="flex items-center gap-1">
+          {Array.from({ length: page.lastPage }, (_, i) => i + 1).map((num) => (
+            <a 
+              href={num === 1 ? `/artikel/topik/${tag}` : `/artikel/topik/${tag}/${num}`}
+              class={`w-10 h-10 flex items-center justify-center rounded-xl font-bold text-sm transition-all ${
+                page.currentPage === num 
+                ? 'bg-[#0990fe] text-white shadow-lg shadow-blue-200' 
+                : 'bg-white border border-gray-100 text-gray-500 hover:bg-blue-50 hover:text-[#0990fe]'
+              }`}
+            >
+              {num}
+            </a>
+          ))}
+        </div>
+
+        {page.url.next && (
+          <a href={page.url.next} class="p-2 rounded-xl border border-gray-200 text-gray-600 hover:bg-[#0990fe] hover:text-white hover:border-[#0990fe] transition-all group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </a>
+        )}
+      </nav>
+
+    </div>
+  </main>
+</Layout>
