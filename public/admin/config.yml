@@ -1,0 +1,93 @@
+backend:
+  name: github
+  repo: ngajiin/ngajiin.github.io
+  branch: main
+
+media_folder: src/content/artikel
+public_folder: src/content/artikel
+
+publish_mode: editorial_workflow
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+
+locale: id
+
+collections:
+  - name: artikel
+    label: Artikel
+    label_singular: Artikel
+    folder: src/content/artikel
+    path: "{{slug}}/index"
+    media_folder: ""
+    public_folder: ""
+    create: true
+    extension: md
+    format: frontmatter
+    preview_path: artikel/{{slug}}
+    summary: "{{title}} - {{category}}"
+    sortable_fields:
+      fields:
+        - title
+        - pubDate
+        - category
+        - featured
+    view_filters:
+      - label: Featured
+        field: featured
+        pattern: true
+    fields:
+      - label: Judul
+        name: title
+        widget: string
+        required: true
+      - label: Deskripsi Singkat
+        name: description
+        widget: text
+        required: false
+      - label: Penulis
+        name: author
+        widget: string
+        default: "Ust. Achmad Syauqi Hifni, Lc., M.Ag"
+        required: true
+      - label: Tanggal Terbit
+        name: pubDate
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+        format: YYYY-MM-DD
+        required: true
+      - label: Kategori
+        name: category
+        widget: string
+        default: "Safinat al-Najah"
+        required: true
+      - label: Gambar Cover
+        name: image
+        widget: image
+        default: "./cover.webp"
+        required: true
+        media_library:
+          config:
+            multiple: false
+      - label: Artikel Utama
+        name: featured
+        widget: boolean
+        default: false
+        required: false
+      - label: Topik
+        name: tags
+        widget: list
+        default:
+          - Fiqih
+        required: false
+        field:
+          label: Topik
+          name: tag
+          widget: string
+      - label: Isi Artikel
+        name: body
+        widget: markdown
+        required: true
